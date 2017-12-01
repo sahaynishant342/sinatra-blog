@@ -1,0 +1,11 @@
+<ul>
+  <h2>All blogs list</h2>
+  <% @posts.each do |post| %>
+      <li>
+        <h4><a href="/posts/<%= post.id %>"><%= post.title %></a></h4>
+        <p>Created: <%= post.created_at %></p>
+      </li>
+  <% end %>
+  <br><br>
+  <a href="/posts/create">Create New Post</a>
+</ul>
