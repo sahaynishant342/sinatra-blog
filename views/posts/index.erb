@@ -1,11 +1,21 @@
 <ul>
-  <h2>All blogs list</h2>
-  <% @posts.each do |post| %>
-      <li>
-        <h4><a href="/posts/<%= post.id %>"><%= post.title %></a></h4>
-        <p>Created: <%= post.created_at %></p>
-      </li>
-  <% end %>
+  <h2>HOMEPAGE</h2>
   <br><br>
-  <a href="/posts/create">Create New Post</a>
+  <h4>Following is the list of all the blogs:-</h4>
+  <table>
+    <tr>
+      <th>Blog Name</th>
+      <th>Creation Time</th>
+      <th>Action</th>
+    </tr>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><a href="/posts/<%= post.id %>"><%= post.title %></a></td>
+        <td><%= post.created_at %></td>
+        <td><a href="/posts/<%= post.id %>/edit">Edit</a></td>
+      </tr>
+    <% end %>
+  </table>
+  <br><br>
+  <a href="/posts/create">Create New Blog</a>
 </ul>

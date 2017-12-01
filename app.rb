@@ -8,39 +8,44 @@ require './environments'
 class Post < ActiveRecord::Base
 end
 
+# render homepage
 get "/" do
   @posts = Post.order("created_at DESC")
-  @title = "Welcome."
   erb :"posts/index"
 end
 
+# render post creation page
 get "/posts/create" do
-  @title = "Create post"
-  @post = Post.new
   erb :"posts/create"
 end
 
-post "/posts" do
+# save post
+post "/posts/" do
   @post = Post.new(params[:post])
   if @post.save
     redirect "posts/#{@post.id}"
   else
-    erb :"posts/create"
+    # TODO : show error message
+    redirect "/"
   end
 end
 
+# render edit page
+get "/posts/:id/edit" do
+  @post = Post.find(params[:id])
+  erb :"posts/edit"
+end
+
+# edit post
+post "/posts/:id" do
+  @post = Post.find params[:id]
+  @post.update params[:post]
+  redirect "/"
+end
+
+# render post view page
 get "/posts/:id" do
   @post = Post.find(params[:id])
-  @title = @post.title
   erb :"posts/view"
 end
 
-helpers do
-  def title
-    if @title
-      "#{@title}"
-    else
-      "Welcome."
-    end
-  end
-end
